@@ -1,0 +1,16 @@
+{
+    "name": "contacts",
+    "description": "contacts component",
+    "scripts": ["index.js"],
+    "styles": ["styles.css"],
+    "templates": [
+        "template.html"
+    ],
+    "main": "index.js",
+    "dependencies": {
+        "serandomps/serand": "master",
+        "serandomps/utils": "master",
+        "serandomps/dust": "master",
+        "serandomps/form": "master"
+    }
+}
