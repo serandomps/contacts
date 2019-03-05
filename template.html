@@ -1,9 +1,15 @@
 <div class="contacts">
-    {@blocks block="text" id=_.container name="phones" help="Phone" value=contacts.phones label="Phone" icon="fas fa-phone"/}
-    {@blocks block="email" id=_.container name="email" help="Email" value=contacts.email label="Email" icon="fas fa-envelope"/}
-    {@blocks block="text" id=_.container name="viber" help="Viber" value=contacts.viber label="Viber" icon="fab fa-viber"/}
-    {@blocks block="text" id=_.container name="whatsapp" help="WhatsApp" value=contacts.whatsapp label="WhatsApp" icon="fab fa-whatsapp"/}
-    {@blocks block="text" id=_.container name="messenger" help="Messenger" value=contacts.messenger label="Messenger" icon="fab fa-facebook-messenger"/}
-    {@blocks block="text" id=_.container name="skype" help="Skype" value=contacts.skype label="Skype" icon="fab fa-skype"/}
-    {@blocks block="feedback" id=_.container name="_"/}
+    <div class="picker">
+        {@blocks block="select" id=_.container name="contact" label=_.label value=contacts options=_.picks/}
+    </div>
+    <div class="creator hidden">
+        {@blocks block="text" id=_.container name="name" help="Name" value=contacts.name label="Name" icon="fas fa-tag"/}
+        {@blocks block="text" id=_.container name="phones" help="Phone" value=contacts.phones label="Phone" icon="fas fa-phone"/}
+        {@blocks block="email" id=_.container name="email" help="Email" value=contacts.email label="Email" icon="fas fa-envelope"/}
+        {@blocks block="text" id=_.container name="viber" help="Viber" value=contacts.viber label="Viber" icon="fab fa-viber"/}
+        {@blocks block="text" id=_.container name="whatsapp" help="WhatsApp" value=contacts.whatsapp label="WhatsApp" icon="fab fa-whatsapp"/}
+        {@blocks block="text" id=_.container name="messenger" help="Messenger" value=contacts.messenger label="Messenger" icon="fab fa-facebook-messenger"/}
+        {@blocks block="text" id=_.container name="skype" help="Skype" value=contacts.skype label="Skype" icon="fab fa-skype"/}
+        {@blocks block="feedback" id=_.container name="_"/}
+    </div>
 </div>
