@@ -68,6 +68,31 @@ var creatorConfig = function (o) {
                 done()
             }
         },
+        phones: {
+            find: function (context, source, done) {
+                var value = $('input', source).val();
+                done(null, value.trim().split(/\s*,\s*/));
+            },
+            validate: function (context, data, value, done) {
+                if (!value) {
+                    return done();
+                }
+                var i;
+                var number;
+                var length = value.length;
+                for (i = 0; i < length; i++) {
+                    number = value[i];
+                    if (number && !/^\+[1-9]\d{1,14}$/.test(number)) {
+                        return done(null, 'Please enter a valid phone number');
+                    }
+                }
+                done(null, null, value);
+            },
+            update: function (context, source, error, value, done) {
+                $('input', source).val(value);
+                done()
+            }
+        },
         email: {
             find: function (context, source, done) {
                 done(null, $('input', source).val());
@@ -83,7 +108,49 @@ var creatorConfig = function (o) {
                 done()
             }
         },
+        viber: {
+            find: function (context, source, done) {
+                done(null, $('input', source).val());
+            },
+            validate: function (context, data, value, done) {
+                if (value && !/^\+[1-9]\d{1,14}$/.test(value)) {
+                    return done(null, 'Please enter a valid phone number');
+                }
+                done(null, null, value);
+            },
+            update: function (context, source, error, value, done) {
+                $('input', source).val(value);
+                done()
+            }
+        },
+        whatsapp: {
+            find: function (context, source, done) {
+                done(null, $('input', source).val());
+            },
+            validate: function (context, data, value, done) {
+                if (value && !/^\+[1-9]\d{1,14}$/.test(value)) {
+                    return done(null, 'Please enter a valid phone number');
+                }
+                done(null, null, value);
+            },
+            update: function (context, source, error, value, done) {
+                $('input', source).val(value);
+                done()
+            }
+        },
         messenger: {
+            find: function (context, source, done) {
+                done(null, $('input', source).val());
+            },
+            validate: function (context, data, value, done) {
+                done(null, null, value);
+            },
+            update: function (context, source, error, value, done) {
+                $('input', source).val(value);
+                done()
+            }
+        },
+        skype: {
             find: function (context, source, done) {
                 done(null, $('input', source).val());
             },
@@ -123,7 +190,7 @@ var creatorConfig = function (o) {
 var findContacts = function (options, done) {
     $.ajax({
         method: 'GET',
-        url: utils.resolve('accounts:///apis/v/contacts' + utils.query({user: options.user})),
+        url: utils.resolve('accounts:///apis/v/contacts' + utils.data({user: options.user})),
         dataType: 'json',
         success: function (data) {
             done(null, data);
@@ -238,11 +305,11 @@ module.exports = function (ctx, container, options, done) {
                     if (o.contact !== '+') {
                         pickerForm.validate({
                             contact: cont
-                        }, function (err, errors, contact) {
+                        }, function (err, errors) {
                             if (err) {
                                 return done(err);
                             }
-                            done(err, errors, contact);
+                            done(err, errors, cont);
                         });
                         return;
                     }
