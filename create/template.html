@@ -1,0 +1,30 @@
+{?_.parent}
+<div class="contacts-create">
+{:else}
+<div class="row">
+    <div class="col-md"></div>
+    <div class="col-md-8">
+        <h1 class="title text-center mb-3">{?id}Edit {name}{:else}Create your contact{/id}</h1>
+        <div class="card mb-3">
+            <!--<div class="card-header">Contacts</div>-->
+            <div class="card-body">
+{/_.parent}
+                {@blocks block="text" id=_.container name="name" help="Primary" value=name label="Name" icon="fas fa-tag"/}
+                {@blocks block="text" id=_.container name="phones" help="+94770000001, +94110000001" value=phones label="Phones" icon="fas fa-phone"/}
+                {@blocks block="text" id=_.container name="email" help="user@example.com" value=email label="Email" icon="fas fa-envelope"/}
+                {@blocks block="text" id=_.container name="viber" help="+94770000001" value=viber label="Viber" icon="fab fa-viber"/}
+                {@blocks block="text" id=_.container name="whatsapp" help="+94770000001" value=whatsapp label="WhatsApp" icon="fab fa-whatsapp"/}
+                {@blocks block="text" id=_.container name="messenger" help="messenger-id" value=messenger label="Messenger" icon="fab fa-facebook-messenger"/}
+                {@blocks block="text" id=_.container name="skype" help="skype-id" value=skype label="Skype" icon="fab fa-skype"/}
+                {@blocks block="feedback" id=_.container name="_"/}
+{?_.parent}
+</div>
+{:else}
+                <button class="create btn btn-primary mr-1">Create</button>
+                <button class="cancel btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md"></div>
+</div>
+{/_.parent}

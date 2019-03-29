@@ -1,0 +1,45 @@
+<div class="card">
+    <div class="card-header">{name}</div>
+    <div class="card-body">
+        {?phones}
+        <div class="d-flex justify-content-start mb-1">
+            <div class="d-inline mr-2"><i class="fas fa-phone"></i></div>
+            <div class="d-inline overflow-hidden">
+                {#phones}
+                {.}
+                {/phones}
+            </div>
+        </div>
+        {/phones}
+        {?email}
+        <div class="d-flex justify-content-start mb-1">
+            <div class="d-inline mr-2"><i class="fas fa-envelope"></i></div>
+            <div class="d-inline overflow-hidden">{email}</div>
+        </div>
+        {/email}
+        {?viber}
+        <div class="d-flex justify-content-start mb-1">
+            <div class="d-inline mr-2"><i class="fab fa-viber"></i></div>
+            <div class="d-inline overflow-hidden">{viber}</div>
+        </div>
+        {/viber}
+        {?whatsapp}
+        <div class="d-flex justify-content-start mb-1">
+            <div class="d-inline mr-2"><i class="fab fa-whatsapp"></i></div>
+            <div class="d-inline overflow-hidden">{whatsapp}</div>
+        </div>
+        {/whatsapp}
+        {?messenger}
+        <div class="d-flex justify-content-start mb-1">
+            <div class="d-inline mr-2"><i class="fab fa-facebook-messenger"></i></div>
+            <div class="d-inline overflow-hidden">{messenger}</div>
+        </div>
+        {/messenger}
+        {?skype}
+        <div class="d-flex justify-content-start mb-1">
+            <div class="d-inline mr-2"><i class="fab fa-skype"></i></div>
+            <div class="d-inline overflow-hidden">{skype}</div>
+        </div>
+        {/skype}
+    </div>
+</div>
