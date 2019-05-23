@@ -56,7 +56,7 @@ var pickerConfig = {
 var findContacts = function (options, done) {
     $.ajax({
         method: 'GET',
-        url: utils.resolve('accounts:///apis/v/contacts' + utils.data({user: options.user})),
+        url: utils.resolve('accounts:///apis/v/contacts' + utils.data({query: {user: options.user}})),
         dataType: 'json',
         success: function (data) {
             done(null, data);
