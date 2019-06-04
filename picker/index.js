@@ -96,7 +96,7 @@ var serialize = function (o) {
 module.exports = function (ctx, container, options, done) {
     var sandbox = container.sandbox;
     options = options || {};
-    findContacts({user: options.user || ctx.user && ctx.user.id}, function (err, contacts) {
+    findContacts({user: options.user || ctx.token && ctx.token.user.id}, function (err, contacts) {
         if (err) {
             return done(err);
         }
