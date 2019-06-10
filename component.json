@@ -7,7 +7,8 @@
         "find/index.js",
         "findone/index.js",
         "picker/index.js",
-        "remove/index.js"
+        "remove/index.js",
+        "service/index.js"
     ],
     "styles": ["styles.css"],
     "templates": [
