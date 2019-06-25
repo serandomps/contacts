@@ -24,12 +24,11 @@ module.exports = function (ctx, container, options, done) {
             return done(err);
         }
         var sandbox = container.sandbox;
-        dust.render('contacts-find', {
-            id: container.id,
+        dust.render('contacts-find', serand.pack({
             title: options.title,
             size: 4,
             contacts: data
-        }, function (err, out) {
+        }, container), function (err, out) {
             if (err) {
                 return done(err);
             }

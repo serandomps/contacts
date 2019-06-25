@@ -39,7 +39,7 @@ module.exports = function (ctx, container, options, done) {
         if (err) {
             return done(err);
         }
-        dust.render('contacts-remove', contact, function (err, out) {
+        dust.render('contacts-remove', serand.pack(contact, container), function (err, out) {
             if (err) {
                 return done(err);
             }
@@ -53,10 +53,10 @@ module.exports = function (ctx, container, options, done) {
                     serand.redirect('/contacts');
                 });
             });
-            contacts(ctx, {
+            contacts(ctx, serand.pack({}, {
                 id: container.id,
                 sandbox: $('.contacts', sandbox)
-            }, contact, function (err, clean) {
+            }), contact, function (err, clean) {
                 if (err) {
                     return done(err);
                 }

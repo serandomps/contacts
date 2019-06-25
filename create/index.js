@@ -222,10 +222,9 @@ var render = function (ctx, container, options, contact, done) {
     var sandbox = container.sandbox;
     var cont = _.cloneDeep(contact || {});
     cont._ = {
-        container: container.id,
         parent: container.parent
     };
-    dust.render('contacts-create', cont, function (err, out) {
+    dust.render('contacts-create', serand.pack(cont, container), function (err, out) {
         if (err) {
             return done(err);
         }

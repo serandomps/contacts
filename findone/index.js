@@ -24,7 +24,7 @@ module.exports = function (ctx, container, options, done) {
             return done(err);
         }
         var sandbox = container.sandbox;
-        dust.render('contacts-findone', options, function (err, out) {
+        dust.render('contacts-findone', serand.pack(options, container), function (err, out) {
             if (err) {
                 return done(err);
             }
