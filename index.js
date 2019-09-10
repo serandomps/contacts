@@ -2,7 +2,7 @@ exports.create = require('./create');
 
 exports.find = require('./find');
 
-exports.findone = require('./findone');
+exports.review = require('./review');
 
 exports.picker = require('./picker');
 

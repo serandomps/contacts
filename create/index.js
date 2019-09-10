@@ -2,6 +2,7 @@ var dust = require('dust')();
 var form = require('form');
 var utils = require('utils');
 var serand = require('serand');
+var Contact = require('../service');
 
 dust.loadSource(dust.compile(require('./template.html'), 'contacts-create'));
 
@@ -155,21 +156,7 @@ var configs = {
     }
 };
 
-var findOne = function (id, done) {
-    $.ajax({
-        method: 'GET',
-        url: ACCOUNTS_API + '/' + id,
-        dataType: 'json',
-        success: function (data) {
-            done(null, data);
-        },
-        error: function (xhr, status, err) {
-            done(err || status || xhr);
-        }
-    });
-};
-
-var create = function (contactsForm, id, done) {
+var create = function (contactsForm, contact, done) {
     contactsForm.find(function (err, data) {
         if (err) {
             return done(err);
@@ -185,33 +172,24 @@ var create = function (contactsForm, id, done) {
                 if (errors) {
                     return done();
                 }
-                var contact = {};
+                var o = {};
+                if (contact) {
+                    o.id = contact.id;
+                }
                 Object.keys(data).forEach(function (key) {
                     var value = data[key];
                     if (Array.isArray(value)) {
                         if (!value.length) {
                             return;
                         }
-                        contact[key] = data[key];
+                        o[key] = data[key];
                         return;
                     }
                     if (value) {
-                        contact[key] = value;
+                        o[key] = value;
                     }
                 });
-                $.ajax({
-                    method: id ? 'PUT' : 'POST',
-                    url: ACCOUNTS_API + (id ? '/' + id : ''),
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: JSON.stringify(contact),
-                    success: function (data) {
-                        done(null, data);
-                    },
-                    error: function (xhr, status, err) {
-                        done(err || status || xhr);
-                    }
-                });
+                utils.create('accounts', 'contacts', Contact.create, contact, o, done);
             });
         });
     });
@@ -238,7 +216,7 @@ var render = function (ctx, container, options, contact, done) {
             if (container.parent) {
                 done(null, {
                     create: function (created) {
-                        create(contactsForm, id, function (err, data) {
+                        create(contactsForm, contact, function (err, data) {
                             if (err) {
                                 return created(err);
                             }
@@ -253,7 +231,7 @@ var render = function (ctx, container, options, contact, done) {
                 return;
             }
             sandbox.on('click', '.create', function (e) {
-                create(contactsForm, id, function (err) {
+                create(contactsForm, contact, function (err) {
                     if (err) {
                         return console.error(err);
                     }
@@ -261,7 +239,7 @@ var render = function (ctx, container, options, contact, done) {
                 });
             });
             sandbox.on('click', '.cancel', function (e) {
-               serand.redirect('/contacts');
+                serand.redirect('/contacts');
             });
             done(null, {
                 form: contactsForm,
@@ -279,7 +257,7 @@ module.exports = function (ctx, container, options, done) {
     if (!id) {
         return render(ctx, container, options, null, done);
     }
-    findOne(id, function (err, contact) {
+    Contact.findOne(options, function (err, contact) {
         if (err) {
             return done(err);
         }

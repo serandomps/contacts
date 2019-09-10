@@ -5,16 +5,20 @@
         "index.js",
         "create/index.js",
         "find/index.js",
-        "findone/index.js",
+        "review/index.js",
         "picker/index.js",
         "remove/index.js",
         "service/index.js"
     ],
-    "styles": ["styles.css"],
+    "styles": [
+        "styles.css",
+        "find/styles.css"
+    ],
     "templates": [
         "create/template.html",
         "find/template.html",
-        "findone/template.html",
+        "review/template.html",
+        "review/actions.html",
         "picker/template.html",
         "remove/template.html"
     ],

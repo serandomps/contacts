@@ -1,25 +1,12 @@
 var dust = require('dust')();
 var serand = require('serand');
 var utils = require('utils');
+var Contact = require('../service');
 
 dust.loadSource(dust.compile(require('./template.html'), 'contacts-find'));
 
-var find = function (done) {
-    $.ajax({
-        method: 'GET',
-        url: utils.resolve('accounts:///apis/v/contacts'),
-        dataType: 'json',
-        success: function (data) {
-            done(null, data);
-        },
-        error: function (xhr, status, err) {
-            done(err || status || xhr);
-        }
-    });
-};
-
 module.exports = function (ctx, container, options, done) {
-    find(function (err, data) {
+    Contact.find({}, function (err, data) {
         if (err) {
             return done(err);
         }

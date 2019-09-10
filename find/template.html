@@ -1,66 +1,115 @@
-<h1 class="title text-center mb-4">{title}
-    <a href="/create-contacts" class="ml-3 text-success">
-        <i class="fas fa-plus-circle"></i>
-    </a>
-</h1>
-{@slice context=contacts size="30"}
-<div class="row">
-    {#.}
-    <div class="col-sm-6 col-lg-{size} mb-3">
-        <div class="thumbnail h-100">
-            <div class="card h-100">
-                <div class="card-header">{name}</div>
-                <div class="card-body">
-                    {?phones}
-                    <div class="d-flex justify-content-start mb-1">
-                        <div class="d-inline mr-2"><i class="fas fa-phone"></i></div>
-                        <div class="d-inline overflow-hidden">
-                            {#phones}
-                            {.}
-                            {/phones}
+<div class="contacts-find">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="actions">
+                <nav class="navbar navbar-expand-lg navbar-light p-0">
+                    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
+                            data-target="#navbar-vehicles-findone-{_.container}"
+                            aria-controls="navbar-vehicles-findone-{_.container}" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbar-vehicles-findone-{_.container}">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link edit" href="/create-contacts">
+                                    <i class="fas fa-plus-circle fa-fw text-primary mr-1"></i> Create
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <h1 class="title font-weight-bolder mb-4 text-center">{title}</h1>
+            {@slice context=contacts size="30"}
+            <div class="row">
+                {#.}
+                <div class="col-lg-{size} mb-3">
+                    <div class="thumbnail h-100">
+                        <div class="card h-100">
+                            <!--<img src="{_.images[0].url}" class="card-img-top" alt="...">-->
+                            <div class="card-header  position-relative bg-transparent border-bottom-0">
+                                <div class="d-flex text-muted">
+                                    <div class="flex-grow-1">
+                                        <h2 class="h5">{name}</h2>
+                                    </div>
+                                    <div class="bd-highlight">
+                                        <i class="fas fa-mobile-alt fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="ml-3 mr-3 mb-0 mt-0"/>
+                            <div class="card-body position-relative">
+                                <!--<h5 class="card-title">{name}</h5>-->
+                                <div class="contacts-find-body text-dark">
+                                    {?phones}
+                                    <div class="d-flex justify-content-start mb-1">
+                                        <div class="d-inline mr-2"><i class="fas fa-phone"></i></div>
+                                        <div class="d-inline overflow-hidden">
+                                            {#phones}
+                                            {.}
+                                            {/phones}
+                                        </div>
+                                    </div>
+                                    {/phones}
+                                    {?email}
+                                    <div class="d-flex justify-content-start mb-1">
+                                        <div class="d-inline mr-2"><i class="fas fa-envelope"></i></div>
+                                        <div class="d-inline overflow-hidden">{email}</div>
+                                    </div>
+                                    {/email}
+                                    {?viber}
+                                    <div class="d-flex justify-content-start mb-1">
+                                        <div class="d-inline mr-2"><i class="fab fa-viber"></i></div>
+                                        <div class="d-inline overflow-hidden">{viber}</div>
+                                    </div>
+                                    {/viber}
+                                    {?whatsapp}
+                                    <div class="d-flex justify-content-start mb-1">
+                                        <div class="d-inline mr-2"><i class="fab fa-whatsapp"></i></div>
+                                        <div class="d-inline overflow-hidden">{whatsapp}</div>
+                                    </div>
+                                    {/whatsapp}
+                                    {?messenger}
+                                    <div class="d-flex justify-content-start mb-1">
+                                        <div class="d-inline mr-2"><i class="fab fa-facebook-messenger"></i></div>
+                                        <div class="d-inline overflow-hidden">{messenger}</div>
+                                    </div>
+                                    {/messenger}
+                                    {?skype}
+                                    <div class="d-flex justify-content-start mb-1">
+                                        <div class="d-inline mr-2"><i class="fab fa-skype"></i></div>
+                                        <div class="d-inline overflow-hidden">{skype}</div>
+                                    </div>
+                                    {/skype}
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent border-top-0 mt-0 pt-0">
+                                <div class="d-flex text-muted">
+                                    <div class="flex-grow-1">
+                                        <span class="badge badge-secondary text-capitalize pull-left">{status}</span>
+                                    </div>
+                                    <div class="bd-highlight">
+                                        <a class="btn-link mr-3" href="/contacts/{id}/edit">
+                                            <i class="fas fa-edit text-primary"></i>
+                                        </a>
+                                        <a class="btn-link" href="/contacts/{id}/delete">
+                                            <i class="fas fa-trash text-danger"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    {/phones}
-                    {?email}
-                    <div class="d-flex justify-content-start mb-1">
-                        <div class="d-inline mr-2"><i class="fas fa-envelope"></i></div>
-                        <div class="d-inline overflow-hidden">{email}</div>
-                    </div>
-                    {/email}
-                    {?viber}
-                    <div class="d-flex justify-content-start mb-1">
-                        <div class="d-inline mr-2"><i class="fab fa-viber"></i></div>
-                        <div class="d-inline overflow-hidden">{viber}</div>
-                    </div>
-                    {/viber}
-                    {?whatsapp}
-                    <div class="d-flex justify-content-start mb-1">
-                        <div class="d-inline mr-2"><i class="fab fa-whatsapp"></i></div>
-                        <div class="d-inline overflow-hidden">{whatsapp}</div>
-                    </div>
-                    {/whatsapp}
-                    {?messenger}
-                    <div class="d-flex justify-content-start mb-1">
-                        <div class="d-inline mr-2"><i class="fab fa-facebook-messenger"></i></div>
-                        <div class="d-inline overflow-hidden">{messenger}</div>
-                    </div>
-                    {/messenger}
-                    {?skype}
-                    <div class="d-flex justify-content-start mb-1">
-                        <div class="d-inline mr-2"><i class="fab fa-skype"></i></div>
-                        <div class="d-inline overflow-hidden">{skype}</div>
-                    </div>
-                    {/skype}
                 </div>
-                <div class="card-footer">
-                    <div class="d-flex flex-row-reverse">
-                        <a href="/contacts/{id}/delete" class="delete"><i class="fas fa-trash text-danger"></i></a>
-                        <a href="/contacts/{id}/edit" class="edit mr-2"><i class="far fa-edit"></i></a>
-                    </div>
-                </div>
+                {/.}
             </div>
+            {/slice}
+        </div>
+        <div class="ads col-md-3 bg-light">
+            Google Ads goes here
         </div>
     </div>
-    {/.}
 </div>
-{/slice}
+
