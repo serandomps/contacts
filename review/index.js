@@ -33,11 +33,9 @@ module.exports = function (ctx, container, options, done) {
 
             $('.contact-ok', sandbox).on('click', function () {
                 var thiz = $(this);
-                serand.emit('loader', 'start', {
-                    delay: 500
-                });
+                utils.loading();
                 utils.publish('accounts', 'contacts', contact, function (err) {
-                    serand.emit('loader', 'end', {});
+                    utils.loaded();
                     if (err) {
                         return console.error(err);
                     }
