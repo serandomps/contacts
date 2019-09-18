@@ -13,7 +13,7 @@ module.exports = function (ctx, container, options, done) {
         var sandbox = container.sandbox;
         dust.render('contacts-find', serand.pack({
             title: options.title,
-            size: 4,
+            size: 6,
             contacts: data
         }, container), function (err, out) {
             if (err) {
