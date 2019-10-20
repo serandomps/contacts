@@ -114,7 +114,8 @@ module.exports = function (ctx, container, options, done) {
             _: {
                 label: options.label,
                 container: container.id,
-                picks: picks
+                picks: picks,
+                contacts: !!contacts.length
             }
         }, container), function (err, out) {
             if (err) {
@@ -195,7 +196,7 @@ module.exports = function (ctx, container, options, done) {
                 };
 
                 pickerForm.render(ctx, {
-                    contact: options.contact
+                    contact: options.contact || (!contacts.length && '+')
                 }, function (err) {
                     if (err) {
                         return done(err);
