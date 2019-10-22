@@ -6,7 +6,11 @@ var Contact = require('../service');
 dust.loadSource(dust.compile(require('./template.html'), 'contacts-find'));
 
 module.exports = function (ctx, container, options, done) {
-    Contact.find({}, function (err, data) {
+    Contact.find({
+        query: {
+            user: ctx.token && ctx.token.user.id
+        }
+    }, function (err, data) {
         if (err) {
             return done(err);
         }
