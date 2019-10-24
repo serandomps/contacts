@@ -131,12 +131,11 @@ module.exports = function (ctx, container, options, done) {
                 container: container.id,
                 sandbox: $('.creator', elem),
                 parent: elem
-            }, null, function (err, o) {
+            }, {contacts: !!contacts.length}, function (err, o) {
                 if (err) {
                     return done(err)
                 }
                 var creatorForm = o.form;
-                var create = o.create;
                 eventer.find = function (done) {
                     pickerForm.find(function (err, o) {
                         if (err) {

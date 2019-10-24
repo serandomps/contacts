@@ -15,7 +15,7 @@ var configs = {
         },
         validate: function (context, data, value, done) {
             if (!value) {
-                return done(null, 'Please specify a name for your contacts');
+                return done(null, 'Please specify a name for your contacts.');
             }
             done(null, null, value);
         },
@@ -43,7 +43,7 @@ var configs = {
             for (i = 0; i < length; i++) {
                 number = value[i];
                 if (number && !/^\+[1-9]\d{1,14}$/.test(number)) {
-                    return done(null, 'Please enter a valid phone number');
+                    return done(null, 'Please enter a valid phone number.');
                 }
             }
             done(null, null, value);
@@ -65,7 +65,7 @@ var configs = {
         },
         validate: function (context, data, value, done) {
             if (value && !is.email(value)) {
-                return done(null, 'Please enter a valid email address');
+                return done(null, 'Please enter a valid email address.');
             }
             done(null, null, value);
         },
@@ -80,7 +80,7 @@ var configs = {
         },
         validate: function (context, data, value, done) {
             if (value && !/^\+[1-9]\d{1,14}$/.test(value)) {
-                return done(null, 'Please enter a valid phone number');
+                return done(null, 'Please enter a valid phone number.');
             }
             done(null, null, value);
         },
@@ -95,7 +95,7 @@ var configs = {
         },
         validate: function (context, data, value, done) {
             if (value && !/^\+[1-9]\d{1,14}$/.test(value)) {
-                return done(null, 'Please enter a valid phone number');
+                return done(null, 'Please enter a valid phone number.');
             }
             done(null, null, value);
         },
@@ -150,7 +150,7 @@ var configs = {
                 }
             }
             done(null, {
-                _: 'Please specify at least one contact information'
+                _: 'Please specify at least one contact information.'
             }, data);
         }
     }
@@ -196,9 +196,10 @@ var create = function (contactsForm, contact, done) {
 };
 
 var render = function (ctx, container, options, contact, done) {
-    var id = contact && contact.id;
     var sandbox = container.sandbox;
-    var cont = _.cloneDeep(contact || {});
+    var cont = _.cloneDeep(contact || {
+        name: options.contacts ? null : 'Primary'
+    });
     cont._ = {
         parent: container.parent
     };
