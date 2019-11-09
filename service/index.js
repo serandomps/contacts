@@ -18,7 +18,7 @@ exports.findOne = function (options, done) {
 exports.find = function (options, done) {
     $.ajax({
         method: 'GET',
-        url: utils.resolve('accounts:///apis/v/contacts' + utils.data(options)),
+        url: utils.resolve('accounts:///apis/v/contacts' + utils.toData(options)),
         dataType: 'json',
         success: function (data) {
             done(null, data);

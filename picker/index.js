@@ -56,7 +56,7 @@ var pickerConfig = {
 var findContacts = function (options, done) {
     $.ajax({
         method: 'GET',
-        url: utils.resolve('accounts:///apis/v/contacts' + utils.data({query: {user: options.user}})),
+        url: utils.resolve('accounts:///apis/v/contacts' + utils.toData({query: {user: options.user}})),
         dataType: 'json',
         success: function (data) {
             done(null, data);
@@ -128,7 +128,7 @@ module.exports = function (ctx, container, options, done) {
             var eventer = utils.eventer();
 
             create(ctx, {
-                container: container.id,
+                id: container.id,
                 sandbox: $('.creator', elem),
                 parent: elem
             }, {contacts: !!contacts.length}, function (err, o) {
