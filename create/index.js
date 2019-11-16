@@ -203,7 +203,7 @@ var render = function (ctx, container, options, contact, done) {
     cont._ = {
         parent: container.parent
     };
-    dust.render('contacts-create', serand.pack(cont, container), function (err, out) {
+    dust.render('contacts-create', serand.pack(cont, container, 'contacts'), function (err, out) {
         if (err) {
             return done(err);
         }

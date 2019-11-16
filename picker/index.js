@@ -7,50 +7,52 @@ var create = require('../create');
 
 dust.loadSource(dust.compile(require('./template.html'), 'contacts-picker'));
 
-var pickerConfig = {
-    contact: {
-        find: function (context, source, done) {
-            serand.blocks('select', 'find', source, done);
-        },
-        validate: function (context, data, value, done) {
-            if (!value) {
-                return done(null, 'Please select an existing contact or create one');
-            }
-            done(null, null, value);
-        },
-        update: function (context, source, error, value, done) {
-            done();
-        },
-        render: function (ctx, pickerForm, data, value, done) {
-            var picker = $('.picker .contact', pickerForm.elem);
-            var creator = $('.creator', pickerForm.elem);
-            serand.blocks('select', 'create', picker, {
-                value: value,
-                change: function () {
-                    pickerForm.find(function (err, pick) {
-                        if (err) {
-                            return done(err);
-                        }
-                        pickerForm.validate(pick, function (err, errors, contact) {
+var configs = function (options) {
+    return {
+        contact: {
+            find: function (context, source, done) {
+                serand.blocks('select', 'find', source, done);
+            },
+            validate: function (context, data, value, done) {
+                if (options.required && !value) {
+                    return done(null, 'Please select an existing contact or create one');
+                }
+                done(null, null, value);
+            },
+            update: function (context, source, error, value, done) {
+                done();
+            },
+            render: function (ctx, pickerForm, data, value, done) {
+                var picker = $('.picker .contact', pickerForm.elem);
+                var creator = $('.creator', pickerForm.elem);
+                serand.blocks('select', 'create', picker, {
+                    value: value,
+                    change: function () {
+                        pickerForm.find(function (err, pick) {
                             if (err) {
-                                return done(err);
+                                return console.error(err);
                             }
-                            pickerForm.update(errors, contact, function (err) {
+                            pickerForm.validate(pick, function (err, errors, contact) {
                                 if (err) {
-                                    return done(err);
+                                    return console.error(err);
                                 }
-                                var val = pick.contact;
-                                if (val === '+') {
-                                    return creator.removeClass('hidden');
-                                }
-                                creator.addClass('hidden');
+                                pickerForm.update(errors, contact, function (err) {
+                                    if (err) {
+                                        return console.error(err);
+                                    }
+                                    var val = pick.contact;
+                                    if (val === '+') {
+                                        return creator.removeClass('hidden');
+                                    }
+                                    creator.addClass('hidden');
+                                });
                             });
                         });
-                    });
-                }
-            }, done);
-        }
-    },
+                    }
+                }, done);
+            }
+        },
+    };
 };
 
 var findContacts = function (options, done) {
@@ -113,17 +115,16 @@ module.exports = function (ctx, container, options, done) {
         dust.render('contacts-picker', serand.pack({
             _: {
                 label: options.label,
-                container: container.id,
                 picks: picks,
                 contacts: !!contacts.length
             }
-        }, container), function (err, out) {
+        }, container, 'contacts'), function (err, out) {
             if (err) {
                 return done(err);
             }
             var elem = sandbox.append(out);
 
-            var pickerForm = form.create(container.id, elem, pickerConfig);
+            var pickerForm = form.create(container.id, elem, configs(options));
 
             var eventer = utils.eventer();
 
@@ -144,7 +145,12 @@ module.exports = function (ctx, container, options, done) {
                         if (o.contact !== '+') {
                             return done(err, o.contact);
                         }
-                        creatorForm.find(done);
+                        creatorForm.find(function (err, data) {
+                            if (err) {
+                                return done(err);
+                            }
+                            done(null, data.contact);
+                        });
                     });
                 };
                 eventer.validate = function (cont, done) {
@@ -159,11 +165,22 @@ module.exports = function (ctx, container, options, done) {
                                 if (err) {
                                     return done(err);
                                 }
-                                done(err, errors, cont);
+                                if (errors) {
+                                    return done(null, errors.contact);
+                                }
+                                done(null, null, cont);
                             });
                             return;
                         }
-                        creatorForm.validate(cont, done);
+                        creatorForm.validate(cont, function (err, errors, data) {
+                            if (err) {
+                                return done(err);
+                            }
+                            if (errors) {
+                                return done(null, errors.contact);
+                            }
+                            done(null, null, data.contact);
+                        });
                     });
                 };
                 eventer.update = function (errors, contact, done) {
