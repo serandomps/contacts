@@ -236,11 +236,11 @@ var render = function (ctx, container, options, contact, done) {
                     if (err) {
                         return console.error(err);
                     }
-                    serand.redirect('/contacts');
+                    serand.redirect(options.location || '/contacts');
                 });
             });
             sandbox.on('click', '.cancel', function (e) {
-                serand.redirect('/contacts');
+                serand.redirect(options.location || '/contacts');
             });
             done(null, {
                 form: contactsForm,
