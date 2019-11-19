@@ -116,7 +116,7 @@ module.exports = function (ctx, container, options, done) {
             _: {
                 label: options.label,
                 picks: picks,
-                contacts: !!contacts.length
+                expand: options.expand && !contacts.length
             }
         }, container, 'contacts'), function (err, out) {
             if (err) {
@@ -149,7 +149,7 @@ module.exports = function (ctx, container, options, done) {
                             if (err) {
                                 return done(err);
                             }
-                            done(null, data.contact);
+                            done(null, data);
                         });
                     });
                 };
