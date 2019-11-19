@@ -103,9 +103,11 @@ module.exports = function (ctx, container, options, done) {
             return done(err);
         }
         var picks = [
-            {value: '', label: 'Contacts'},
-            {value: '+', label: 'Add Contacts'}
+            {value: '', label: 'Contacts'}
         ];
+        if (options.creatable) {
+            picks.push({value: '+', label: 'Add Contacts'});
+        }
         picks = picks.concat(_.map(contacts, function (contact) {
             return {
                 value: contact.id,
@@ -212,7 +214,7 @@ module.exports = function (ctx, container, options, done) {
                 };
 
                 pickerForm.render(ctx, {
-                    contact: options.contact || (!contacts.length && '+')
+                    contact: options.contact || (options.expand && '+')
                 }, function (err) {
                     if (err) {
                         return done(err);

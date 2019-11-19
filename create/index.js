@@ -6,8 +6,6 @@ var Contact = require('../service');
 
 dust.loadSource(dust.compile(require('./template.html'), 'contacts-create'));
 
-var ACCOUNTS_API = utils.resolve('accounts:///apis/v/contacts');
-
 var configs = {
     name: {
         find: function (context, source, done) {
