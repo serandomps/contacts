@@ -114,11 +114,12 @@ module.exports = function (ctx, container, options, done) {
                 label: serialize(contact)
             }
         }));
+        var expand = options.expand && !contacts.length;
         dust.render('contacts-picker', serand.pack({
             _: {
                 label: options.label,
                 picks: picks,
-                expand: options.expand && !contacts.length
+                expand: expand
             }
         }, container, 'contacts'), function (err, out) {
             if (err) {
@@ -214,7 +215,7 @@ module.exports = function (ctx, container, options, done) {
                 };
 
                 pickerForm.render(ctx, {
-                    contact: options.contact || (options.expand && '+')
+                    contact: options.contact || (expand && '+')
                 }, function (err) {
                     if (err) {
                         return done(err);
