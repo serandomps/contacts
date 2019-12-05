@@ -1,12 +1,12 @@
-.contacts-find .stretched-link {
+.model-contacts-find .stretched-link {
     text-decoration: none;
 }
 
-.contacts-find .avatar {
+.model-contacts-find .avatar {
     width: 50px;
     height: 50px;
 }
 
-.contacts-find .ads {
+.model-contacts-find .ads {
     height: 500px;
 }

@@ -1,6 +1,6 @@
 {
-    "name": "contacts",
-    "description": "contacts component",
+    "name": "model-contacts",
+    "description": "model-contacts component",
     "scripts": [
         "index.js",
         "create/index.js",

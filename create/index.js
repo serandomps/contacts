@@ -4,7 +4,7 @@ var utils = require('utils');
 var serand = require('serand');
 var Contact = require('../service');
 
-dust.loadSource(dust.compile(require('./template.html'), 'contacts-create'));
+dust.loadSource(dust.compile(require('./template.html'), 'model-contacts-create'));
 
 var configs = {
     name: {
@@ -168,7 +168,7 @@ var create = function (contactsForm, contact, done) {
                     return done(err);
                 }
                 if (errors) {
-                    return done();
+                    return done(null, errors);
                 }
                 var o = {};
                 if (contact) {
@@ -187,7 +187,12 @@ var create = function (contactsForm, contact, done) {
                         o[key] = value;
                     }
                 });
-                utils.create('accounts', 'contacts', Contact.create, contact, o, done);
+                utils.create('accounts', 'contacts', Contact.create, contact, o, function (err, contact) {
+                    if (err) {
+                        return done(err);
+                    }
+                    done(null, null, contact);
+                });
             });
         });
     });
@@ -201,7 +206,7 @@ var render = function (ctx, container, options, contact, done) {
     cont._ = {
         parent: container.parent
     };
-    dust.render('contacts-create', serand.pack(cont, container, 'contacts'), function (err, out) {
+    dust.render('model-contacts-create', serand.pack(cont, container, 'model-contacts'), function (err, out) {
         if (err) {
             return done(err);
         }
@@ -224,15 +229,18 @@ var render = function (ctx, container, options, contact, done) {
                     },
                     form: contactsForm,
                     clean: function () {
-                        $('.contacts-create', sandbox).remove();
+                        $('.model-contacts-create', sandbox).remove();
                     }
                 });
                 return;
             }
             sandbox.on('click', '.create', function (e) {
-                create(contactsForm, contact, function (err) {
+                create(contactsForm, contact, function (err, errors) {
                     if (err) {
                         return console.error(err);
+                    }
+                    if (errors) {
+                        return;
                     }
                     serand.redirect(options.location || '/contacts');
                 });
@@ -243,7 +251,7 @@ var render = function (ctx, container, options, contact, done) {
             done(null, {
                 form: contactsForm,
                 clean: function () {
-                    $('.contacts-create', sandbox).remove();
+                    $('.model-contacts-create', sandbox).remove();
                 }
             });
         });

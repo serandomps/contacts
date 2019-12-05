@@ -3,7 +3,7 @@ var serand = require('serand');
 var utils = require('utils');
 var Contact = require('../service');
 
-dust.loadSource(dust.compile(require('./template.html'), 'contacts-find'));
+dust.loadSource(dust.compile(require('./template.html'), 'model-contacts-find'));
 
 module.exports = function (ctx, container, options, done) {
     Contact.find({
@@ -15,7 +15,7 @@ module.exports = function (ctx, container, options, done) {
             return done(err);
         }
         var sandbox = container.sandbox;
-        dust.render('contacts-find', serand.pack({
+        dust.render('model-contacts-find', serand.pack({
             title: options.title,
             size: 6,
             contacts: data
@@ -25,7 +25,7 @@ module.exports = function (ctx, container, options, done) {
             }
             sandbox.append(out);
             done(null, function () {
-                $('.contacts-find', sandbox).remove();
+                $('.model-contacts-find', sandbox).remove();
             });
         });
     });

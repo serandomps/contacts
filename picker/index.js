@@ -5,7 +5,7 @@ var dust = require('dust')();
 
 var create = require('../create');
 
-dust.loadSource(dust.compile(require('./template.html'), 'contacts-picker'));
+dust.loadSource(dust.compile(require('./template.html'), 'model-contacts-picker'));
 
 var configs = function (options) {
     return {
@@ -115,13 +115,13 @@ module.exports = function (ctx, container, options, done) {
             }
         }));
         var expand = options.expand && !contacts.length;
-        dust.render('contacts-picker', serand.pack({
+        dust.render('model-contacts-picker', serand.pack({
             _: {
                 label: options.label,
                 picks: picks,
                 expand: expand
             }
-        }, container, 'contacts'), function (err, out) {
+        }, container, 'model-contacts'), function (err, out) {
             if (err) {
                 return done(err);
             }
