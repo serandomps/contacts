@@ -220,9 +220,12 @@ var render = function (ctx, container, options, contact, done) {
             if (container.parent) {
                 done(null, {
                     create: function (created) {
-                        create(contactsForm, contact, function (err, data) {
+                        create(contactsForm, contact, function (err, errors, data) {
                             if (err) {
                                 return created(err);
+                            }
+                            if (errors) {
+                                return created(null, errors)
                             }
                             created(null, null, data);
                         });
