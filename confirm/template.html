@@ -1,0 +1,26 @@
+<div class="model-contacts-confirm">
+    {?_.parent}
+    {:else}
+    <h1 class="title text-center font-weight-bolder text-muted"><i class="fas fa-check-double mr-1"></i>Confirm verification codes</h1>
+    <div class="card mb-3 mt-3 bg-light">
+        <!--<div class="card-header">Contacts</div>-->
+        <div class="card-body">
+            {/_.parent}
+            {?phone}
+            {@blocks block="text" id=_.container name="phone" label="Phone" help=phone icon="fas fa-phone"/}
+            {/phone}
+            {?email}
+            {@blocks block="text" id=_.container name="email" label="Email" help=email icon="fas fa-envelope"/}
+            {/email}
+            {?_.parent}
+        </div>
+        {:else}
+        <button type="button" class="cancel btn btn-secondary mr-2">
+            <i class="fas fa-times-circle fa-fw mr-1"></i>Cancel
+        </button>
+        <button type="button" class="confirm btn btn-primary">
+            <i class="fas fa-save fa-fw mr-1"></i>Confirm
+        </button>
+    </div>
+    {/_.parent}
+</div>

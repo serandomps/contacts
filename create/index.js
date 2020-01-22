@@ -22,39 +22,22 @@ var configs = {
             done()
         }
     },
-    phones: {
+    phone: {
         find: function (context, source, done) {
-            var value = $('input', source).val();
-            value = value.trim().split(/\s*,\s*/);
-            value = _.filter(value, function (val) {
-                return !!val;
-            });
-            done(null, value);
+            done(null, $('input', source).val());
         },
         validate: function (context, data, value, done) {
             if (!value) {
                 return done();
             }
-            var i;
-            var number;
-            var length = value.length;
-            for (i = 0; i < length; i++) {
-                number = value[i];
-                if (number && !/^\+[1-9]\d{1,14}$/.test(number)) {
-                    return done(null, 'Please enter a valid phone number.');
-                }
+            if (!/^\+[1-9]\d{1,14}$/.test(value)) {
+                return done(null, 'Please enter a valid phone number.');
             }
             done(null, null, value);
         },
         update: function (context, source, error, value, done) {
             $('input', source).val(value);
             done()
-        },
-        render: function (ctx, vform, data, value, done) {
-            var el = $('.phones', vform.elem);
-            serand.blocks('text', 'create', el, {
-                value: value ? value.join(', ') : ''
-            }, done);
         }
     },
     email: {
@@ -64,36 +47,6 @@ var configs = {
         validate: function (context, data, value, done) {
             if (value && !is.email(value)) {
                 return done(null, 'Please enter a valid email address.');
-            }
-            done(null, null, value);
-        },
-        update: function (context, source, error, value, done) {
-            $('input', source).val(value);
-            done()
-        }
-    },
-    viber: {
-        find: function (context, source, done) {
-            done(null, $('input', source).val());
-        },
-        validate: function (context, data, value, done) {
-            if (value && !/^\+[1-9]\d{1,14}$/.test(value)) {
-                return done(null, 'Please enter a valid phone number.');
-            }
-            done(null, null, value);
-        },
-        update: function (context, source, error, value, done) {
-            $('input', source).val(value);
-            done()
-        }
-    },
-    whatsapp: {
-        find: function (context, source, done) {
-            done(null, $('input', source).val());
-        },
-        validate: function (context, data, value, done) {
-            if (value && !/^\+[1-9]\d{1,14}$/.test(value)) {
-                return done(null, 'Please enter a valid phone number.');
             }
             done(null, null, value);
         },
@@ -137,12 +90,6 @@ var configs = {
                     continue;
                 }
                 var value = data[field];
-                if (Array.isArray(value)) {
-                    if (!value.length) {
-                        continue;
-                    }
-                    return done(null, null, data);
-                }
                 if (value) {
                     return done(null, null, data);
                 }
@@ -187,11 +134,11 @@ var create = function (contactsForm, contact, done) {
                         o[key] = value;
                     }
                 });
-                utils.create('accounts', 'contacts', Contact.create, contact, o, function (err, contact) {
+                Contact.create(o, function (err, data) {
                     if (err) {
                         return done(err);
                     }
-                    done(null, null, contact);
+                    done(null, null, data);
                 });
             });
         });
@@ -203,9 +150,8 @@ var render = function (ctx, container, options, contact, done) {
     var cont = _.cloneDeep(contact || {
         name: options.contacts ? null : 'Primary'
     });
-    cont._ = {
-        parent: container.parent
-    };
+    cont._ = cont._ || {};
+    cont._.parent = container.parent;
     dust.render('model-contacts-create', serand.pack(cont, container, 'model-contacts'), function (err, out) {
         if (err) {
             return done(err);
@@ -238,14 +184,20 @@ var render = function (ctx, container, options, contact, done) {
                 return;
             }
             sandbox.on('click', '.create', function (e) {
-                create(contactsForm, contact, function (err, errors) {
+                utils.loading();
+                create(contactsForm, contact, function (err, errors, contact) {
+                    utils.loaded();
                     if (err) {
                         return console.error(err);
                     }
                     if (errors) {
                         return;
                     }
-                    serand.redirect(options.location || '/contacts');
+                    var verified = contact._ && contact._.verified || {};
+                    if ((!contact.email || verified.email) && (!contact.phone || verified.phone)) {
+                        return serand.redirect('/contacts');
+                    }
+                    serand.redirect('/contacts/' + contact.id + '/verify');
                 });
             });
             sandbox.on('click', '.cancel', function (e) {

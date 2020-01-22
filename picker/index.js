@@ -71,13 +71,11 @@ var findContacts = function (options, done) {
 
 var serialize = function (o) {
     var items = [];
+    if (o.phone) {
+        items.push(o.phone);
+    }
     if (o.email) {
         items.push(o.email);
-    }
-    if (o.phones) {
-        o.phones.forEach(function (phone) {
-            items.push(phone);
-        });
     }
     if (o.viber) {
         items.push(o.viber);
@@ -210,7 +208,7 @@ module.exports = function (ctx, container, options, done) {
                         if (errors) {
                             return done(null, errors);
                         }
-                        done(null, null, contact.id);
+                        done(null, null, contact.id, contact);
                     });
                 };
 

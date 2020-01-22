@@ -1,0 +1,28 @@
+<div class="model-contacts-review">
+{?_.parent}
+{:else}
+        <h1 class="title text-center font-weight-bolder text-muted"><i class="fas fa-check-double mr-1"></i>Verify your contacts</h1>
+        <div class="card mb-3 mt-3 bg-light">
+            <!--<div class="card-header">Contacts</div>-->
+            <div class="card-body">
+{/_.parent}
+                {?phone}
+                {@blocks block="checkboxes" id=_.container name="phone" value=phone options=_.phones label="Phone" icon="fas fa-phone"/}
+                {/phone}
+                {?email}
+                {@blocks block="checkboxes" id=_.container name="email" value=email options=_.emails label="Email" icon="fas fa-envelope"/}
+                {/email}
+                {@blocks block="captcha" id=_.container name="captcha"/}
+                {@blocks block="feedback" id=_.container name="_"/}
+{?_.parent}
+            </div>
+{:else}
+            <button type="button" class="cancel btn btn-secondary mr-2">
+                <i class="fas fa-times-circle fa-fw mr-1"></i>Cancel
+            </button>
+            <button type="button" class="review btn btn-primary"> <!-- disabled flag // ruchira -->
+                <i class="fas fa-save fa-fw mr-1"></i>Verify
+            </button>
+        </div>
+{/_.parent}
+</div>

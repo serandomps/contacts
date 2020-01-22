@@ -41,16 +41,12 @@
                     <div class="card-body position-relative">
                         <!--<h5 class="card-title">{name}</h5>-->
                         <div class="model-contacts-find-body text-dark">
-                            {?phones}
+                            {?phone}
                             <div class="d-flex justify-content-start mb-1">
                                 <div class="d-inline mr-2"><i class="fas fa-phone"></i></div>
-                                <div class="d-inline overflow-hidden">
-                                    {#phones}
-                                    {.}
-                                    {/phones}
-                                </div>
+                                <div class="d-inline overflow-hidden">{phone}</div>
                             </div>
-                            {/phones}
+                            {/phone}
                             {?email}
                             <div class="d-flex justify-content-start mb-1">
                                 <div class="d-inline mr-2"><i class="fas fa-envelope"></i></div>
@@ -89,6 +85,11 @@
                                 <span class="badge badge-secondary text-capitalize pull-left">{status}</span>
                             </div>
                             <div class="bd-highlight">
+                                {?_.verify}
+                                <a class="btn-link mr-3" href="/contacts/{id}/verify">
+                                    <i class="fas fa-question text-warning"></i>
+                                </a>
+                                {/_.verify}
                                 <a class="btn-link mr-3" href="/contacts/{id}/edit">
                                     <i class="fas fa-edit text-primary"></i>
                                 </a>

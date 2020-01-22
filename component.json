@@ -4,9 +4,12 @@
     "scripts": [
         "index.js",
         "create/index.js",
+        "verify/index.js",
+        "confirm/index.js",
         "find/index.js",
         "picker/index.js",
         "remove/index.js",
+        "review/index.js",
         "service/index.js"
     ],
     "styles": [
@@ -15,15 +18,21 @@
     ],
     "templates": [
         "create/template.html",
+        "verify/template.html",
+        "confirm/template.html",
         "find/template.html",
         "picker/template.html",
-        "remove/template.html"
+        "remove/template.html",
+        "review/editing.html",
+        "review/template.html",
+        "review/unpublished.html"
     ],
     "main": "index.js",
     "dependencies": {
         "serandomps/serand": "master",
         "serandomps/utils": "master",
         "serandomps/dust": "master",
-        "serandomps/form": "master"
+        "serandomps/form": "master",
+        "serandomps/captcha": "master"
     }
 }

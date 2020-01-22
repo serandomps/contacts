@@ -7,20 +7,25 @@
             <div class="card-body">
 {/_.parent}
                 {@blocks block="text" id=_.container name="name" help="Primary" value=name label="Name" icon="fas fa-tag"/}
-                {@blocks block="text" id=_.container name="phones" help="+94770000001, +94110000001" value=phones label="Phones" icon="fas fa-phone"/}
+                {@blocks block="text" id=_.container name="phone" help="+94770000001" value=phone label="Phone" icon="fas fa-phone"/}
                 {@blocks block="text" id=_.container name="email" help="user@example.com" value=email label="Email" icon="fas fa-envelope"/}
-                {@blocks block="text" id=_.container name="viber" help="+94770000001" value=viber label="Viber" icon="fab fa-viber"/}
-                {@blocks block="text" id=_.container name="whatsapp" help="+94770000001" value=whatsapp label="WhatsApp" icon="fab fa-whatsapp"/}
                 {@blocks block="text" id=_.container name="messenger" help="messenger-id" value=messenger label="Messenger" icon="fab fa-facebook-messenger"/}
                 {@blocks block="text" id=_.container name="skype" help="skype-id" value=skype label="Skype" icon="fab fa-skype"/}
                 {@blocks block="feedback" id=_.container name="_"/}
 {?_.parent}
             </div>
 {:else}
-            <button type="button" class="cancel btn btn-secondary mr-2">
+            <button type="button" class="cancel btn btn-secondary">
                 <i class="fas fa-times-circle fa-fw mr-1"></i>Cancel
             </button>
-            <button type="button" class="create btn btn-primary">
+            {?id}
+            {?_.verify}
+            <button type="button" class="create btn btn-warning ml-2">
+                <i class="fas fa-check-double fa-fw mr-1"></i>Verify
+            </button>
+            {/_.verify}
+            {/id}
+            <button type="button" class="create btn btn-primary ml-2">
                 <i class="fas fa-save fa-fw mr-1"></i>{?id}Update{:else}Create{/id}
             </button>
         </div>
