@@ -220,7 +220,7 @@ module.exports = function (ctx, container, options, done) {
             return serand.redirect(options.location || '/contacts');
         }
         var verified = contact._ && contact._.verified || {};
-        if ((!contact.email || verified.email) || (!contact.phone || verified.email)) {
+        if ((!contact.email || verified.email) && (!contact.phone || verified.email)) {
             return serand.redirect(utils.query('/contacts/' + contact.id + '/review', {
                 location: options.location || '/contacts'
             }));
