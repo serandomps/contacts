@@ -112,8 +112,7 @@ var create = function (verificationForm, contact, done) {
                     method: 'POST',
                     url: utils.resolve('accounts:///apis/v/contacts/' + contact.id),
                     headers: {
-                        'X-Action': 'verify',
-                        'X-Captcha': data.captcha
+                        'X-Action': 'verify'
                     },
                     contentType: 'application/json',
                     data: JSON.stringify({
