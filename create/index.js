@@ -134,11 +134,19 @@ var create = function (contactsForm, contact, done) {
                         o[key] = value;
                     }
                 });
-                Contact.create(o, function (err, data) {
+                utils.create('accounts', 'contacts', Contact.create, contact, o, function (contact, action) {
+                    if (contact.email && !contact._.verified.email) {
+                        return false
+                    }
+                    if (contact.phone && !contact._.verified.phone) {
+                        return false
+                    }
+                    return true
+                }, function (err, contact) {
                     if (err) {
                         return done(err);
                     }
-                    done(null, null, data);
+                    done(null, null, contact);
                 });
             });
         });

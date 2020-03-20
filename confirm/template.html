@@ -7,10 +7,14 @@
         <div class="card-body">
             {/_.parent}
             {?phone}
+            {?_.phone}
             {@blocks block="text" id=_.container name="phone" label="Phone" help=phone icon="fas fa-phone"/}
+            {/_.phone}
             {/phone}
             {?email}
+            {?_.email}
             {@blocks block="text" id=_.container name="email" label="Email" help=email icon="fas fa-envelope"/}
+            {/_.email}
             {/email}
             {?_.parent}
         </div>

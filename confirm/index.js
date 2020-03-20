@@ -26,7 +26,7 @@ var configs = {
                 if (err) {
                     return done(err);
                 }
-                context.phone = data.phone;
+                context.phone = data._.phone;
                 done(null, context);
             });
         }
@@ -49,7 +49,7 @@ var configs = {
                 if (err) {
                     return done(err);
                 }
-                context.email = data.email;
+                context.email = data._.email;
                 done(null, context);
             });
         }
@@ -95,9 +95,7 @@ var create = function (verificationForm, contact, done) {
 
 var render = function (ctx, container, options, contact, done) {
     var sandbox = container.sandbox;
-    contact._ = {
-        parent: container.parent
-    };
+    contact._.parent = container.parent;
     if (contact.email) {
         contact._.emails = [{
             label: contact.email,
@@ -109,6 +107,12 @@ var render = function (ctx, container, options, contact, done) {
             label: contact.phone,
             value: contact.phone
         }];
+    }
+    if (options.phone) {
+        contact._.phone = true;
+    }
+    if (options.email) {
+        contact._.email = true;
     }
     dust.render('model-contacts-confirm', serand.pack(contact, container, 'model-contacts'), function (err, out) {
         if (err) {

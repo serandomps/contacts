@@ -1,7 +1,7 @@
 <div class="model-contacts-create">
 {?_.parent}
 {:else}
-        <h1 class="title text-center font-weight-bolder text-muted">{?id}Edit {name}{:else}Create your contact{/id}</h1>
+        <h1 class="title text-center font-weight-bolder text-dark">{?id}Edit {name}{:else}Create your contact{/id}</h1>
         <div class="card mb-3 mt-3 bg-light">
             <!--<div class="card-header">Contacts</div>-->
             <div class="card-body">
@@ -15,17 +15,17 @@
 {?_.parent}
             </div>
 {:else}
-            <button type="button" class="cancel btn btn-secondary">
+            <button type="button" class="cancel btn btn-secondary font-weight-bolder">
                 <i class="fas fa-times-circle fa-fw mr-1"></i>Cancel
             </button>
             {?id}
             {?_.verify}
-            <button type="button" class="create btn btn-warning ml-2">
+            <button type="button" class="create btn btn-warning font-weight-bolder ml-2">
                 <i class="fas fa-check-double fa-fw mr-1"></i>Verify
             </button>
             {/_.verify}
             {/id}
-            <button type="button" class="create btn btn-primary ml-2">
+            <button type="button" class="create btn btn-primary font-weight-bolder ml-2">
                 <i class="fas fa-save fa-fw mr-1"></i>{?id}Update{:else}Create{/id}
             </button>
         </div>

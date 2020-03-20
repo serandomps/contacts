@@ -19,27 +19,15 @@
             </div>
         </nav>
     </div>
-    <h1 class="title font-weight-bolder mb-3 text-center text-muted">{title}</h1>
+    <h1 class="title font-weight-bolder mb-3 text-center text-dark">{title}</h1>
     {@slice context=contacts size="30"}
     <div class="row">
         {#.}
         <div class="col-lg-{size} mb-3">
             <div class="thumbnail h-100">
                 <div class="card h-100">
-                    <!--<img src="{_.images[0].url}" class="card-img-top" alt="...">-->
-                    <div class="card-header  position-relative bg-transparent border-bottom-0">
-                        <div class="d-flex text-muted align-items-center">
-                            <div class="flex-grow-1">
-                                <h4 class="text-truncate text-primary">{name}</h4>
-                            </div>
-                            <div class="bd-highlight">
-                                <i class="fas fa-mobile-alt fa-2x"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <hr class="ml-3 mr-3 mb-0 mt-0"/>
                     <div class="card-body position-relative">
-                        <!--<h5 class="card-title">{name}</h5>-->
+                        <h4 class="text-truncate font-weight-bolder text-dark mb-3">{name}</h4>
                         <div class="model-contacts-find-body text-dark">
                             {?phone}
                             <div class="d-flex justify-content-start mb-1">

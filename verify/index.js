@@ -120,7 +120,7 @@ var create = function (verificationForm, contact, done) {
                         phone: data.phone
                     }),
                     dataType: 'json',
-                    success: function (data) {
+                    success: function () {
                         done(null, null, data);
                     },
                     error: function (xhr, status, err) {
@@ -180,7 +180,7 @@ var render = function (ctx, container, options, contact, done) {
             }
             sandbox.on('click', '.verify', function (e) {
                 utils.loading();
-                create(verificationForm, contact, function (err, errors) {
+                create(verificationForm, contact, function (err, errors, data) {
                     utils.loaded();
                     if (err) {
                         return console.error(err);
@@ -188,9 +188,16 @@ var render = function (ctx, container, options, contact, done) {
                     if (errors) {
                         return;
                     }
-                    serand.redirect(utils.query('/contacts/' + contact.id + '/confirm', {
+                    var query = {
                         location: options.location || '/contacts'
-                    }));
+                    };
+                    if (data.email) {
+                        query.email = data.email;
+                    }
+                    if (data.phone) {
+                        query.phone = data.phone;
+                    }
+                    serand.redirect(utils.query('/contacts/' + contact.id + '/confirm', query));
                 });
             });
             sandbox.on('click', '.cancel', function (e) {
@@ -219,7 +226,7 @@ module.exports = function (ctx, container, options, done) {
             return serand.redirect(options.location || '/contacts');
         }
         var verified = contact._ && contact._.verified || {};
-        if ((!contact.email || verified.email) && (!contact.phone || verified.email)) {
+        if ((!contact.email || verified.email) && (!contact.phone || verified.phone)) {
             return serand.redirect(utils.query('/contacts/' + contact.id + '/review', {
                 location: options.location || '/contacts'
             }));
