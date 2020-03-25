@@ -18,11 +18,11 @@ var configs = {
             });
         },
         render: function (ctx, vform, data, value, done) {
-            serand.blocks('checkboxes', 'create', $('.phone', vform.elem), {}, function (err, context) {
+            serand.blocks('checkboxes', 'create', $('.phone', vform.elem), {value: value}, function (err, context) {
                 if (err) {
                     return done(err);
                 }
-                context.phone = data.phone;
+                context.phone = value;
                 done(null, context);
             });
         }
@@ -37,11 +37,11 @@ var configs = {
             });
         },
         render: function (ctx, vform, data, value, done) {
-            serand.blocks('checkboxes', 'create', $('.email', vform.elem), {}, function (err, context) {
+            serand.blocks('checkboxes', 'create', $('.email', vform.elem), {value: value}, function (err, context) {
                 if (err) {
                     return done(err);
                 }
-                context.email = data.email;
+                context.email = value;
                 done(null, context);
             });
         }

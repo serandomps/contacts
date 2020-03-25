@@ -155,7 +155,9 @@ var render = function (ctx, container, options, contact, done) {
                     if (errors) {
                         return;
                     }
-                    serand.redirect(options.location || '/contacts');
+                    serand.redirect(utils.query('/contacts/' + contact.id + '/review', {
+                        location: options.location || '/contacts'
+                    }));
                 });
             });
             sandbox.on('click', '.cancel', function (e) {
