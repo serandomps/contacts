@@ -167,7 +167,7 @@ module.exports = function (ctx, container, options, done) {
                                     return done(err);
                                 }
                                 if (errors) {
-                                    return done(null, errors.contact);
+                                    return done(null, errors);
                                 }
                                 done(null, null, cont);
                             });
@@ -178,9 +178,9 @@ module.exports = function (ctx, container, options, done) {
                                 return done(err);
                             }
                             if (errors) {
-                                return done(null, errors.contact);
+                                return done(null, errors);
                             }
-                            done(null, null, data.contact);
+                            done(null, null, data);
                         });
                     });
                 };
