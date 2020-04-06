@@ -156,7 +156,7 @@ var create = function (contactsForm, contact, done) {
 var render = function (ctx, container, options, contact, done) {
     var sandbox = container.sandbox;
     var cont = _.cloneDeep(contact || {
-        name: options.contacts ? null : 'Primary'
+        name: options.contacts
     });
     cont._ = cont._ || {};
     cont._.parent = container.parent;

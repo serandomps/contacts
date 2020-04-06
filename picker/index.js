@@ -15,7 +15,7 @@ var configs = function (options) {
             },
             validate: function (context, data, value, done) {
                 if (options.required && !value) {
-                    return done(null, 'Please select an existing contact or create one');
+                    return done(null, 'Please select an existing contact or create one.');
                 }
                 done(null, null, value);
             },
@@ -117,7 +117,8 @@ module.exports = function (ctx, container, options, done) {
             _: {
                 label: options.label,
                 picks: picks,
-                expand: expand
+                expand: expand,
+                details: options.details
             }
         }, container, 'model-contacts'), function (err, out) {
             if (err) {

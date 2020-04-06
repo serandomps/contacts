@@ -17,7 +17,7 @@ var configs = {
                 return done();
             }
             if (!value) {
-                return done(null, 'Please specify code received via your phone');
+                return done(null, 'Please specify code received via your phone.');
             }
             done(null, null, value);
         },
@@ -40,7 +40,7 @@ var configs = {
                 return done();
             }
             if (!value) {
-                return done(null, 'Please specify code received via your email');
+                return done(null, 'Please specify code received via your email.');
             }
             done(null, null, value);
         },
