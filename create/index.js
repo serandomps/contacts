@@ -79,14 +79,43 @@ var configs = {
             done()
         }
     },
+    visibility: {
+        find: function (context, source, done) {
+            serand.blocks('checkboxes', 'find', source, function (err, value) {
+                done(err, value);
+            });
+        },
+        render: function (ctx, vform, data, value, done) {
+            var el = $('.visibility', vform.elem);
+            var visibility = data._ && data._.visibility && data._.visibility.published ? ['restricted'] : [];
+            serand.blocks('checkboxes', 'create', el, {
+                value: visibility
+            }, done);
+        }
+    },
     _: {
         validate: function (data, done) {
+            var _;
+            var visibility;
+            var groups = utils.groups();
+            var o = data.visibility;
+            delete data.visibility;
+            _ = data._ || (data._ = {});
+            visibility = _.visibility || (_.visibility = {});
+            if (o.indexOf('restricted') !== -1) {
+                visibility.published = {
+                    [groups.anonymous.id]: ['name', 'email', 'messenger', 'skype'],
+                    [groups.public.id]: ['name', 'email', 'messenger', 'skype']
+                };
+            } else {
+                delete visibility.published;
+            }
             var field;
             for (field in data) {
                 if (!data.hasOwnProperty(field)) {
                     continue;
                 }
-                if (field === 'name') {
+                if (field === 'name' || field === '_') {
                     continue;
                 }
                 var value = data[field];
@@ -155,11 +184,12 @@ var create = function (contactsForm, contact, done) {
 
 var render = function (ctx, container, options, contact, done) {
     var sandbox = container.sandbox;
-    var cont = _.cloneDeep(contact || {
-        name: options.contacts
-    });
+    var cont = _.cloneDeep(contact || {});
     cont._ = cont._ || {};
     cont._.parent = container.parent;
+    cont._.visibility = [
+        {label: 'Hidden', value: 'restricted'}
+    ];
     dust.render('model-contacts-create', serand.pack(cont, container, 'model-contacts'), function (err, out) {
         if (err) {
             return done(err);
