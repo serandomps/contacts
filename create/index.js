@@ -96,6 +96,7 @@ var configs = {
     _: {
         validate: function (data, done) {
             var _;
+            var visibles;
             var visibility;
             var groups = utils.groups();
             var o = data.visibility;
@@ -103,10 +104,10 @@ var configs = {
             _ = data._ || (data._ = {});
             visibility = _.visibility || (_.visibility = {});
             if (o.indexOf('restricted') !== -1) {
-                visibility.published = {
-                    [groups.anonymous.id]: ['name', 'email', 'messenger', 'skype'],
-                    [groups.public.id]: ['name', 'email', 'messenger', 'skype']
-                };
+                visibles = {};
+                visibles[groups.anonymous.id] = ['name', 'email', 'messenger', 'skype']
+                visibles[groups.public.id] = ['name', 'email', 'messenger', 'skype']
+                visibility.published = visibles;
             } else {
                 delete visibility.published;
             }
