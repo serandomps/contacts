@@ -19,15 +19,17 @@
             </div>
         </nav>
     </div>
-    <h1 class="title font-weight-bold mb-3 text-center text-dark">{title}</h1>
+    <h1 class="title font-weight-bold mb-3 text-dark">{title}</h1>
     {@slice context=contacts size="30"}
     <div class="row">
         {#.}
-        <div class="col-lg-{size} mb-3">
+        <div class="col-lg-{size} mb-5">
             <div class="thumbnail h-100">
-                <div class="card h-100">
+                <div class="card h-100 shadow-sm">
                     <div class="card-body position-relative">
-                        <h4 class="text-truncate font-weight-bold text-dark mb-3">{name}</h4>
+                        <h4 class="text-truncate font-weight-bold text-dark mb-3">
+                            <i class="fas fa-mobile mr-2"></i>{name}
+                        </h4>
                         <div class="model-contacts-find-body text-muted">
                             {?phone}
                             <div class="d-flex justify-content-start mb-1">
@@ -43,18 +45,6 @@
                                 <div class="d-inline overflow-hidden">{email}</div>
                             </div>
                             {/email}
-                            {?viber}
-                            <div class="d-flex justify-content-start mb-1">
-                                <div class="d-inline mr-2"><i class="fab fa-viber"></i></div>
-                                <div class="d-inline overflow-hidden">{viber}</div>
-                            </div>
-                            {/viber}
-                            {?whatsapp}
-                            <div class="d-flex justify-content-start mb-1">
-                                <div class="d-inline mr-2"><i class="fab fa-whatsapp"></i></div>
-                                <div class="d-inline overflow-hidden">{whatsapp}</div>
-                            </div>
-                            {/whatsapp}
                             {?messenger}
                             <div class="d-flex justify-content-start mb-1">
                                 <div class="d-inline mr-2"><i class="fab fa-facebook-messenger"></i></div>
@@ -69,7 +59,7 @@
                             {/skype}
                         </div>
                     </div>
-                    <div class="card-footer bg-transparent border-top-0 mt-0 pt-0">
+                    <div class="card-footer bg-transparent border-top-0 mt-3 pl-3 pr-3">
                         <div class="d-flex text-muted">
                             <div class="flex-grow-1">
                                 <span class="badge badge-secondary text-capitalize pull-left">{status}</span>
