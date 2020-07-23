@@ -74,7 +74,7 @@ var create = function (verificationForm, contact, done) {
                 }
                 $.ajax({
                     method: 'POST',
-                    url: utils.resolve('accounts:///apis/v/contacts/' + contact.id),
+                    url: utils.resolve('apis:///v/contacts/' + contact.id),
                     headers: {
                         'X-Action': 'confirm'
                     },

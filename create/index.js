@@ -164,7 +164,7 @@ var create = function (contactsForm, contact, done) {
                         o[key] = value;
                     }
                 });
-                utils.create('accounts', 'contacts', Contact.create, contact, o, function (contact, action) {
+                utils.create('contacts', Contact.create, contact, o, function (contact, action) {
                     if (contact.email && !contact._.verified.email) {
                         return false
                     }

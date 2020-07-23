@@ -112,7 +112,7 @@ var create = function (verificationForm, contact, done) {
                 }
                 $.ajax({
                     method: 'POST',
-                    url: utils.resolve('accounts:///apis/v/contacts/' + contact.id),
+                    url: utils.resolve('apis:///v/contacts/' + contact.id),
                     headers: {
                         'X-Action': 'review'
                     },
@@ -155,7 +155,7 @@ var render = function (ctx, container, options, contact, done) {
             }
             sandbox.append(out);
             sandbox.on('click', '.confirm', function () {
-                utils.transit('accounts', 'contacts', contact.id, 'publish', function (err) {
+                utils.transit('contacts', contact.id, 'publish', function (err) {
                     if (err) {
                         return console.error(err);
                     }
@@ -180,7 +180,7 @@ var render = function (ctx, container, options, contact, done) {
             }
             sandbox.append(out);
             sandbox.on('click', '.confirm', function () {
-                utils.transit('accounts', 'contacts', contact.id, 'review', function (err) {
+                utils.transit('contacts', contact.id, 'review', function (err) {
                     if (err) {
                         return console.error(err);
                     }
